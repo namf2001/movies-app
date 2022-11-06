@@ -31,23 +31,21 @@ const Header = () => {
 			<div className="container header__wrap">
 				<div className="logo">
 					<img src={logo} alt="logo" />
-					<Link to="/">FLnam Movies</Link>
+					<Link to="/">FLMovies</Link>
 				</div>
 				<nav className="header__nav">
 					<ul className="header__list">
 						{headerNav.map((item, index) => (
-							<li key={index} className="header__item">
-								<Link
-									to={item.path}
-									className={
-										item.path === active.path
-											? "active"
-											: ""
-									}>
-									{item.display}
-								</Link>
+							<li
+								key={index}
+								className={
+									item.path === active.path
+										? "header__list-item active"
+										: "header__list-item"
+								}>
+								<Link to={item.path}>{item.display}</Link>
 							</li>
-						))} 
+						))}
 					</ul>
 				</nav>
 			</div>

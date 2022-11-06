@@ -1,0 +1,119 @@
+@use "../../scss/" as *;
+
+.logo {
+	font-size: 2.5rem;
+	font-weight: 600;
+	@include flex(center, unset);
+	position: relative;
+
+	&::after {
+		content: "";
+		position: absolute;
+		bottom: -5px;
+		left: 0;
+		width: 100%;
+		height: 2px;
+		background-color: $main-color;
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.3s ease;
+	}
+
+	&:hover::after {
+		transform: scaleX(1);
+	}
+
+	@include flex(center, unset);
+
+	img {
+		width: 50px;
+		margin-right: 10px;
+
+		@include mobile {
+			width: 30px;
+			margin-right: 0;
+		}
+	}
+}
+
+.header {
+	height: $header-height;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 99;
+	transition: height 0.3s ease, background-color 0.3s ease;
+
+	&.shrink {
+		height: $header-shrink-height;
+		background-color: $body-bg;
+		box-shadow: $box-shadow-header;
+	}
+
+	&__wrap {
+		@include flex(center, space-between);
+		height: 100%;
+		padding: 0 2rem;
+
+		@include mobile {
+			padding: 0 1rem;
+			justify-content: center;
+		}
+	}
+
+	&__nav {
+		@include flex(center, unset);
+	}
+
+	&__list {
+		@include flex(center, unset);
+
+		& > * ~ * {
+			margin-left: 2rem;
+		}
+
+		&-item {
+			@include flex(center, unset);
+			position: relative;
+            padding: 5px 0;
+            font-weight: 700;
+            font-size: 1.5rem;
+
+			&::after {
+				content: "";
+				position: absolute;
+				bottom: -5px;
+				left: 0;
+				width: 100%;
+				height: 2px;
+				background-color: $main-color;
+				transform: scaleX(0);
+				transform-origin: left;
+				transition: transform 0.3s ease;
+			}
+
+            &.active::after,
+			&:hover::after {
+				transform: scaleX(1);
+			}
+		}
+
+		@include mobile {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			height: 5rem;
+			width: 100%;
+			background-color: $body-bg;
+			padding: 0 2rem;
+			box-shadow: $box-shadow;
+
+			@include flex(center, space-between);
+
+			& > * ~ * {
+				margin-left: 0;
+			}
+		}
+	}
+}
