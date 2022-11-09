@@ -69,16 +69,16 @@
 	&__list {
 		@include flex(center, unset);
 
-		& > * ~ * {
+		&>*~* {
 			margin-left: 2rem;
 		}
 
 		&-item {
 			@include flex(center, unset);
 			position: relative;
-            padding: 5px 0;
-            font-weight: 700;
-            font-size: 1.5rem;
+			padding: 5px 0;
+			font-weight: 700;
+			font-size: 1.5rem;
 
 			&::after {
 				content: "";
@@ -93,7 +93,7 @@
 				transition: transform 0.3s ease;
 			}
 
-            &.active::after,
+			&.active::after,
 			&:hover::after {
 				transform: scaleX(1);
 			}
@@ -111,7 +111,7 @@
 
 			@include flex(center, space-between);
 
-			& > * ~ * {
+			&>*~* {
 				margin-left: 0;
 			}
 		}
