@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import tmdbApi, { category } from "../../api/tmdbApi";
+import tmdbApi from "../../api/tmdbApi";
 import apiConfig from "../../api/apiConfig";
 import { useParams } from "react-router-dom";
 import "./detail.scss";
