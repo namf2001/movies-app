@@ -22,7 +22,7 @@
     &__content {
         padding: 2rem;
         background-color: $body-bg;
-        width: 50%;
+        // width: 50%;
         opacity: 0;
         transform: translateY(-250px);
         transition: transform 0.6s ease, opacity 0.6s ease;

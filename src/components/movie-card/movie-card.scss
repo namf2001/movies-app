@@ -1,87 +1,86 @@
 @use "../../scss/" as *;
 
 .movie-card {
-    position: relative;
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding-top: 160%;
-    border-radius: $border-radius;
-    margin-bottom: 1rem;
+	margin-bottom: 30%;
+	position: relative;
+	img {
+		-webkit-box-reflect: below 4px
+			linear-gradient(transparent, transparent, rgba(0, 0, 0, 0.4));
+		-webkit-transition: all 0.5s ease;
+		-o-transition: all 0.5s ease;
+		transition: all 0.5s ease;
+		border-radius: 5px;
+	}
 
-    .btn {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+	&__overplay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		transform: translateY(100%);
+		background: rgba(0, 0, 0, 0.4);
+		opacity: 0;
+		-webkit-transition: all 0.5s ease;
+		-o-transition: all 0.5s ease;
+		transition: all 0.5s ease;
 
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background-color: $black;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        border-radius: $border-radius;
-    }
+		&__content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+			color: $white;
+			-webkit-transition: all 0.5s ease;
+			-o-transition: all 0.5s ease;
+			transition: all 0.5s ease;
 
-    &__overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 1rem;
-        border-radius: $border-radius;
-        background-color: rgba(0, 0, 0, 0.5);
-        transition: background-color 0.3s ease;
+			.title {
+				font-size: 0.8rem;
+				font-weight: 600;
+				margin-bottom: 1rem;
+			}
 
-        &__content {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            height: 100%;
+			.votes {
+				font-size: 0.7rem;
+				font-weight: 400;
+				// width: 100%;
+				padding: 5px 8px;
+				background-color: #666;
+				box-sizing: border-box;
+				border-radius: 5px;
+				background: #ffffff;
+				border: 1px solid #f7f9fd;
 
-            &__title {
-                color: $white;
-                font-size: 1.5rem;
-                font-weight: 600;
-                margin-bottom: 0.5rem;
-            }
+				.vote {
+					display: flex;
+					align-items: center;
+					
+                    &__icon {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+                        width: 30px;
+                        height: 30px;
+						// margin-right: 17px;
+						background: #ffe600;
+						border-radius: 50%;
+                    }
 
-            &__actions {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-top: 1rem;
+					&__average {
+						font-size: 0.7rem;
+						font-weight: 400;
+						color: #000;
+						margin: 0 17px;
+					}
+				}
+			}
+		}
+	}
 
-                .btn-action {
-                    transform: translate(0, 0) scale(1);
-                }
-            }
-        }
-    }
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-            &::before {
-                opacity: 0.5;
-            }
-
-            .btn {
-                transform: translate(-50%, -50%) scale(1);
-            }
-
-            &__overlay {
-                background-color: rgba(0, 0, 0, 0.7);
-            }
-        }
-    }
+	&:hover .movie-card__overplay {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }

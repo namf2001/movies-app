@@ -7,8 +7,10 @@ import logo from "../../assets/image/logo-app.png";
 const Header = () => {
 	const { pathname } = useLocation();
 	const headerRef = useRef(null);
-	const active = headerNav.find((item) => item.path === pathname);
-
+	let active = headerNav.find((item) => item.path === pathname);
+	if (active === undefined) {
+		active = 'undefined';
+	}
 	useEffect(() => {
 		const shrinkHeader = () => {
 			if (

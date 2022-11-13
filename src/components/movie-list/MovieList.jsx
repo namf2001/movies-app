@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 // scss
 import "./movie-list.scss";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Button
-// import Button, { OutlineButton } from "../button/Button";
+import { OutlineButton } from "../button/Button";
 // api
 import tmdbApi, { category } from "../../api/tmdbApi";
-// import apiConfig from "../../api/apiConfig";
-// import { useNavigate } from "react-router-dom";
 import MovieCard from "../movie-card/MovieCard";
+// import { TrailerModal } from "../hero-slide/HeroSlider";
+import Modal, { ModalContent } from "../modal/Modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import apiConfig from "../../api/apiConfig";
 
 const MovieList = (props) => {
+	const [loading, setLoading] = useState(true);
 	const [movies, setMovies] = useState([]);
 
 	useEffect(() => {
@@ -33,33 +38,153 @@ const MovieList = (props) => {
 						});
 				}
 			} else {
-				response = await tmdbApi.getSimilarMovies(props.id, { params });
+				response = await tmdbApi.similar(props.category, props.id);
 			}
 			setMovies(response.results);
+			setLoading(false);
 		};
 		fetchData();
 	}, [props.category, props.type, props.id]);
 
-	return (
-		<div className="movie-list">
-			<Swiper
-				spaceBetween={10}
-				slidesPerView={"auto"}
-				grabCursor={true}
-				freeMode={true}>
+	if (loading) {
+		return <div>Loading...</div>;
+	} else {
+		return (
+			<>
+				<div className="section mb-3">
+					<div className="section__header mb-2">
+						<h2>{props.title}</h2>
+						<Link to="/movie">
+							<OutlineButton className="small">
+								View more
+							</OutlineButton>
+						</Link>
+					</div>
+					<div className="movie-list">
+						<Swiper
+							spaceBetween={10}
+							slidesPerView={"auto"}
+							grabCursor={true}
+							freeMode={true}>
+							{movies.map((item, i) => (
+								<SwiperSlide key={i}>
+									<MovieCard
+										item={item}
+										category={props.category}
+									/>
+								</SwiperSlide>
+							))}
+						</Swiper>
+					</div>
+				</div>
 				{movies.map((item, i) => (
-					<SwiperSlide key={i}>
-						<MovieCard item={item} category={props.category} />
-					</SwiperSlide>
+					<ModalDetail
+						key={i}
+						item={item}
+						category={props.category}
+					/>
 				))}
-			</Swiper>
-		</div>
-	);
+			</>
+		);
+	}
 };
 
 MovieList.propTypes = {
 	category: PropTypes.string.isRequired,
 	type: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+};
+
+// modal detail
+export const ModalDetail = (props) => {
+	const { item, category } = props;
+	const [detail, setDetail] = useState(null);
+	const link = `/${props.category}/${item.id}`;
+	useEffect(() => {
+		const getDetail = async () => {
+			const response = await tmdbApi.detail(category, item.id, {
+				params: {},
+			});
+			setDetail(response);
+		};
+		getDetail();
+	}, [category, item.id]);
+	console.log(detail);
+
+	if (detail === null) {
+		return <div className="loading"></div>;
+	} else {
+		return (
+			<>
+				{detail && (
+					<Modal active={false} id={`modal__detail-${item.id}`}>
+						<ModalContent>
+							<div className="modal__movie-card">
+								<div className="modal__container">
+									<Link to={link}>
+										<img
+											src={apiConfig.w500Image(
+												detail.poster_path
+											)}
+											alt="cover"
+											className="modal__cover"
+										/>
+									</Link>
+									<div className="hero" id={`id${item.id}`}>
+										<style>
+											{`
+											#${`id${item.id}`}.hero::before {
+												background: url(${apiConfig.w1280Image(
+													detail.backdrop_path
+												)}) no-repeat top center;
+												background-size: cover;
+											}
+										`}
+										</style>
+										<div className="details">
+											<div className="title1">
+												{detail.title}
+												{/* lang */}
+												<span className="lang">
+													{detail.tagline}
+												</span>
+											</div>
+
+											<div className="title2">
+												{detail.status}
+											</div>
+											<span className="likes">
+												<FontAwesomeIcon
+													icon={faThumbsUp}
+												/>
+												{detail.popularity}
+											</span>
+										</div>
+									</div>
+									<div className="description">
+										<div className="column1">
+											{detail.genres.map((genre) => (
+												<span
+													className="tag"
+													key={genre.id}>
+													{genre.name}
+												</span>
+											))}
+										</div>
+
+										<div className="column2">
+											<p>{detail.overview}</p>
+											<div className="avatars"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</ModalContent>
+					</Modal>
+				)}
+			</>
+		);
+	}
 };
 
 export default MovieList;

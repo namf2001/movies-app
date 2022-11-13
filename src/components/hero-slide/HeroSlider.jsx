@@ -18,10 +18,14 @@ import "swiper/css";
 
 import Button, { OutlineButton } from "../button/Button";
 import Modal, { ModalContent } from "../modal/Modal";
+import Loading from "../loading/Loading";
 
 const HeroSlider = () => {
-	SwiperCore.use([Autoplay]);
+	const [loading, setLoading] = useState(true);
 	const [movies, setMovies] = useState([]);
+
+	SwiperCore.use([Autoplay]);
+	// const [movies, setMovies] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -33,7 +37,7 @@ const HeroSlider = () => {
 					{ params }
 				);
 				setMovies(response.results.slice(1, 6));
-				console.log(response);
+				setLoading(false);
 			} catch (error) {
 				console.log(error);
 			}
@@ -41,35 +45,38 @@ const HeroSlider = () => {
 		fetchData();
 	}, []);
 
-	return (
-		<div className="hero-slide">
-			<Swiper
-				modules={[Autoplay]}
-				grabCursor={true}
-				spaceBetween={0}
-				slidesPerView={1}
-                autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                }}
-                speed= {1000}
-			>
+	if (loading) {
+		return <Loading />;
+	} else {
+		return (
+			<div className="hero-slide">
+				<Swiper
+					modules={[Autoplay]}
+					grabCursor={true}
+					spaceBetween={0}
+					slidesPerView={1}
+					autoplay={{
+						delay: 5000,
+						disableOnInteraction: false,
+					}}
+					speed={1000}>
+					{movies.map((item, i) => (
+						<SwiperSlide key={i}>
+							{({ isActive }) => (
+								<HeroSlideItem
+									item={item}
+									className={`${isActive ? "active" : ""}`}
+								/>
+							)}
+						</SwiperSlide>
+					))}
+				</Swiper>
 				{movies.map((item, i) => (
-					<SwiperSlide key={i}>
-						{({ isActive }) => (
-							<HeroSlideItem
-								item={item}
-								className={`${isActive ? "active" : ""}`}
-							/>
-						)}
-					</SwiperSlide>
+					<TrailerModal key={i} item={item} />
 				))}
-			</Swiper>
-			{movies.map((item, i) => (
-				<TrailerModal key={i} item={item} />
-			))}
-		</div>
-	);
+			</div>
+		);
+	}
 };
 
 const HeroSlideItem = (props) => {
@@ -88,14 +95,15 @@ const HeroSlideItem = (props) => {
 
 		if (videos.results.length > 0) {
 			const videSrc =
-				"https://www.youtube.com/embed/" + videos.results[0].key;
+				"https://www.youtube.com/embed/" +
+				videos.results[0].key +
+				"?autoplay=1";
 			modal
 				.querySelector(".modal__content > iframe")
 				.setAttribute("src", videSrc);
 		} else {
 			modal.querySelector(".modal__content").innerHTML = "No trailer";
 		}
-
 		modal.classList.toggle("active");
 	};
 
@@ -160,7 +168,7 @@ const HeroSlideItem = (props) => {
 	);
 };
 
-const TrailerModal = (props) => {
+export const TrailerModal = (props) => {
 	const item = props.item;
 
 	const iframeRef = useRef(null);

@@ -6,6 +6,7 @@ const apiConfig = {
     w780Image: (imgPath) => `https://image.tmdb.org/t/p/w780/${imgPath}`,
     w1280Image: (imgPath) => `https://image.tmdb.org/t/p/w1280/${imgPath}`,
     w1920Image: (imgPath) => `https://image.tmdb.org/t/p/w1920/${imgPath}`,
+    // img poster
 }
 
 export default apiConfig;

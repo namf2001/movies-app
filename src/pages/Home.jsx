@@ -1,26 +1,36 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { category, movieType } from '../api/tmdbApi'
-import { OutlineButton } from '../components/button/Button'
-import HeroSlider from '../components/hero-slide/HeroSlider'
-import MovieList from '../components/movie-list/MovieList'
+import { category, movieType, tvType } from "../api/tmdbApi";
+
+import HeroSlider from "../components/hero-slide/HeroSlider";
+import MovieList from "../components/movie-list/MovieList";
 
 const Home = () => {
-    return (
-        <>
-            <HeroSlider />
-            <div className="container">
-                <div className="section mb-3">
-                    <div className="section__header mb-2">
-                    <Link to="/movie">
-                            <OutlineButton className="small">View more</OutlineButton>
-                        </Link>
-                    </div>
-                    <MovieList category={category.movie} type={movieType.popular}/>
-                </div>
-            </div>
-        </>
-    )
-}
+	return (
+		<>
+			<HeroSlider />
+			<div className="container">
+				<MovieList
+					category={category.movie}
+					type={movieType.popular}
+					title={"Trending Movies"}
+				/>
+				<MovieList
+					category={category.movie}
+					type={movieType.top_rated}
+					title={"Top Rated Movies"}
+				/>
+				<MovieList
+					category={category.tv}
+					type={tvType.popular}
+					title={"Trending TV"}
+				/>
+				<MovieList
+					category={category.tv}
+					type={tvType.top_rated}
+					title={"Top Rated TV"}
+				/>
+			</div>
+		</>
+	);
+};
 
-export default Home
+export default Home;

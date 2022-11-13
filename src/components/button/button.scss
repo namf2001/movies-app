@@ -43,21 +43,21 @@ button {
 }
 
 .btn-action {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    border: 2px solid $white;
+    border: none;
     background-color: $main-color;
     color: $white;
-    font-size: 1.5rem;
+    font-size: 0.7rem;
     font-weight: 600;
-    box-shadow: 0px 0px 7px 8px #ff00004d;
+    // box-shadow: 0px 0px 7px 8px #ff00004d;
     transition: box-shadow 0.3s ease;
     position: relative;
 }
 
 .btn-action:hover {
-    box-shadow: 0px 0px 7px 15px #ff00004d;
+    box-shadow: 0px 0px 7px 5px #ff00004d;
     // scale the button
     transform: scale(1.1);
 }
