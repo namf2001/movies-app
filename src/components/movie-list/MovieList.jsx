@@ -17,7 +17,6 @@ import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import apiConfig from "../../api/apiConfig";
 
 const MovieList = (props) => {
-	const [loading, setLoading] = useState(true);
 	const [movies, setMovies] = useState([]);
 
 	useEffect(() => {
@@ -41,52 +40,43 @@ const MovieList = (props) => {
 				response = await tmdbApi.similar(props.category, props.id);
 			}
 			setMovies(response.results);
-			setLoading(false);
 		};
 		fetchData();
 	}, [props.category, props.type, props.id]);
 
-	if (loading) {
-		return <div>Loading...</div>;
-	} else {
-		return (
-			<>
-				<div className="section mb-3">
-					<div className="section__header mb-2">
-						<h2>{props.title}</h2>
-						<Link to="/movie">
-							<OutlineButton className="small">
-								View more
-							</OutlineButton>
-						</Link>
-					</div>
-					<div className="movie-list">
-						<Swiper
-							spaceBetween={10}
-							slidesPerView={"auto"}
-							grabCursor={true}
-							freeMode={true}>
-							{movies.map((item, i) => (
-								<SwiperSlide key={i}>
-									<MovieCard
-										item={item}
-										category={props.category}
-									/>
-								</SwiperSlide>
-							))}
-						</Swiper>
-					</div>
+	return (
+		<>
+			<div className="section mb-3">
+				<div className="section__header mb-2">
+					<h2>{props.title}</h2>
+					<Link to="/movie">
+						<OutlineButton className="small">
+							View more
+						</OutlineButton>
+					</Link>
 				</div>
-				{movies.map((item, i) => (
-					<ModalDetail
-						key={i}
-						item={item}
-						category={props.category}
-					/>
-				))}
-			</>
-		);
-	}
+				<div className="movie-list">
+					<Swiper
+						spaceBetween={10}
+						slidesPerView={"auto"}
+						grabCursor={true}
+						freeMode={true}>
+						{movies.map((item, i) => (
+							<SwiperSlide key={i}>
+								<MovieCard
+									item={item}
+									category={props.category}
+								/>
+							</SwiperSlide>
+						))}
+					</Swiper>
+				</div>
+			</div>
+			{movies.map((item, i) => (
+				<ModalDetail key={i} item={item} category={props.category} />
+			))}
+		</>
+	);
 };
 
 MovieList.propTypes = {

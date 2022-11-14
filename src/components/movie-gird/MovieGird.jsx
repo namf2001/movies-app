@@ -2,15 +2,14 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import tmdbApi, { category, movieType, tvType } from "../../api/tmdbApi";
 import Button, { OutlineButton } from "../button/Button";
-import { TrailerModal } from "../hero-slide/HeroSlider";
 import Input from "../input/Input.jsx";
 import MovieCard from "../movie-card/MovieCard";
+import { ModalDetail } from "../movie-list/MovieList";
 // import MovieSearch from "../movie-search/MovieSearch";
 // import scss
 import "./movie-gird.scss";
 
 const MovieGird = (props) => {
-	const [loading, setLoading] = useState(true);
 	const [items, setItems] = useState([]);
 	const [page, setPage] = useState(1);
 	const [totalPage, setTotalPage] = useState(1);
@@ -42,14 +41,12 @@ const MovieGird = (props) => {
 			}
 			setItems(response.results);
 			setTotalPage(response.total_pages);
-			setLoading(false);
 		};
 		getList();
 	}, [props.category, keyword]);
 
 	// load more
 	const loadMore = async () => {
-		setLoading(true);
 		const params = {
 			page: page + 1,
 		};
@@ -75,39 +72,30 @@ const MovieGird = (props) => {
 		}
 		setItems([...items, ...response.results]);
 		setPage(page + 1);
-		setLoading(false);
 	};
 
-	if (loading) {
-		return <div>Loading...</div>;
-	} else {
-		return (
-			<>
-				<div className="section mb-3">
-					<MovieSearch category={props.category} keyword={keyword} />
-				</div>
-				<div className="movie-grid">
-					{items.map((item, i) => (
-						<MovieCard
-							category={props.category}
-							item={item}
-							key={i}
-						/>
-					))}
-				</div>
-				{page < totalPage ? (
-					<div className="movie-grid__loadmore">
-						<OutlineButton className="small" onClick={loadMore}>
-							Load more
-						</OutlineButton>
-					</div>
-				) : null}
+	return (
+		<>
+			<div className="section mb-3">
+				<MovieSearch category={props.category} keyword={keyword} />
+			</div>
+			<div className="movie-grid">
 				{items.map((item, i) => (
-					<TrailerModal key={i} item={item} />
+					<MovieCard category={props.category} item={item} key={i} />
 				))}
-			</>
-		);
-	}
+			</div>
+			{page < totalPage ? (
+				<div className="movie-grid__loadmore">
+					<OutlineButton className="small" onClick={loadMore}>
+						Load more
+					</OutlineButton>
+				</div>
+			) : null}
+			{items.map((item, i) => (	
+				<ModalDetail key={i} item={item} category={props.category} />
+			))}
+		</>
+	);
 };
 
 const MovieSearch = (props) => {
