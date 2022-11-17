@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
-
 import tmdbApi, { category, movieType } from "../../api/tmdbApi";
-import SwiperCore, { Autoplay } from "swiper";
 import apiConfig from "../../api/apiConfig";
 import { useNavigate } from "react-router-dom";
-import "./hero-slide.scss";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // icon star
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faUser } from "@fortawesome/free-solid-svg-icons";
-
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import SwiperCore, { Autoplay, EffectFade, Pagination } from "swiper";
 // Import Swiper styles
 import "swiper/css";
+import "swiper/css/effect-fade";
+import 'swiper/css/pagination';
+import "swiper/swiper-bundle.min.css";
+import "./hero-slide.scss";
 
 import Button, { OutlineButton } from "../button/Button";
 import Modal, { ModalContent } from "../modal/Modal";
@@ -25,7 +24,6 @@ const HeroSlider = () => {
 	const [movies, setMovies] = useState([]);
 
 	SwiperCore.use([Autoplay]);
-	// const [movies, setMovies] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -51,10 +49,12 @@ const HeroSlider = () => {
 		return (
 			<div className="hero-slide">
 				<Swiper
-					modules={[Autoplay]}
-					grabCursor={true}
+					modules={[Autoplay, EffectFade, Pagination]}
+					effect="fade"
+					loop={true}
 					spaceBetween={0}
 					slidesPerView={1}
+					pagination={{ clickable: true, dynamicBullets: true, dynamicMainBullets: 5 }}
 					autoplay={{
 						delay: 5000,
 						disableOnInteraction: false,

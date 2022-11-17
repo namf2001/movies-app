@@ -6,7 +6,7 @@ import { ActionButton } from "../button/Button";
 // icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import icons
-import { faPlus, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
 // api
 import apiConfig from "../../api/apiConfig";
 import tmdbApi, { category } from "../../api/tmdbApi";
@@ -54,7 +54,7 @@ const MovieCard = (props) => {
 						<div className="vote">
 							<div className="vote__icon">
 								<Link to={link}>
-									<FontAwesomeIcon icon={faStar} />
+									<FontAwesomeIcon icon={faPlay} />
 								</Link>
 							</div>
 							<div className="vote__average">

@@ -10,10 +10,9 @@ import { OutlineButton } from "../button/Button";
 // api
 import tmdbApi, { category } from "../../api/tmdbApi";
 import MovieCard from "../movie-card/MovieCard";
-// import { TrailerModal } from "../hero-slide/HeroSlider";
 import Modal, { ModalContent } from "../modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp, faStar } from "@fortawesome/free-solid-svg-icons";
 import apiConfig from "../../api/apiConfig";
 
 const MovieList = (props) => {
@@ -111,7 +110,7 @@ export const ModalDetail = (props) => {
 						<ModalContent>
 							<div className="modal__movie-card">
 								<div className="modal__container">
-									<Link to={link}>
+									<div className="modal__img">
 										<img
 											src={apiConfig.w500Image(
 												detail.poster_path
@@ -119,7 +118,17 @@ export const ModalDetail = (props) => {
 											alt="cover"
 											className="modal__cover"
 										/>
-									</Link>
+										<div className="modal__img--overlay">
+										<Link to={link}>
+											<FontAwesomeIcon
+												icon={faThumbsUp}
+												className="modal__icon"
+											/>
+										</Link>
+									</div>
+									</div>
+									{/* overlay play*/}
+									
 									<div className="hero" id={`id${item.id}`}>
 										<style>
 											{`
@@ -136,18 +145,29 @@ export const ModalDetail = (props) => {
 												{detail.title}
 												{/* lang */}
 												<span className="lang">
-													{detail.tagline}
+													{detail.status}
 												</span>
 											</div>
-
 											<div className="title2">
-												{detail.status}
+												{detail.tagline}
 											</div>
-											<span className="likes">
-												<FontAwesomeIcon
-													icon={faThumbsUp}
-												/>
-												{detail.popularity}
+											<span className="rating">
+												<div className="rating__popularity">
+													<FontAwesomeIcon
+														icon={faThumbsUp}
+													/>
+													<span>
+														{detail.popularity}
+													</span>
+												</div>
+												<div className="rating__vote">
+													<FontAwesomeIcon
+														icon={faStar}
+													/>
+													<span>
+														{detail.vote_average}
+													</span>
+												</div>
 											</span>
 										</div>
 									</div>

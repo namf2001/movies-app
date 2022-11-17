@@ -17,19 +17,45 @@
 .modal__movie-card {
 	font: 14px/22px "Lato", Arial, sans-serif;
 	color: #a9a8a3;
-	// padding: 40px 0;
-
-	@include mobile {
-		padding: 20px 0;
-	}
+	min-height: 100%;
 
 	.modal__container {
 		margin: 0 auto;
 		width: 780px;
-		height: 640px;
+		min-height: 100%;
 		background: #f0f0ed;
 		border-radius: 5px;
 		position: relative;
+
+		.modal__img {
+			position: relative;;
+			
+			@include mobile {
+				display: none;
+			}
+
+			&--overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.4);
+				opacity: 0;
+				-webkit-transition: all 0.5s ease;
+				-o-transition: all 0.5s ease;
+				transition: all 0.5s ease;
+			}
+
+			img {
+
+			}
+		}
+
+		@include mobile {
+			width: 100%;
+			height: 100%;
+		}
 
 		.hero {
 			height: 342px;
@@ -39,6 +65,10 @@
 			z-index: 1;
 			border-top-left-radius: 5px;
 			border-top-right-radius: 5px;
+
+			@include mobile {
+				height: 100%;
+			}
 
 			&::before {
 				content: "";
@@ -65,11 +95,19 @@
 			.details {
 				padding: 190px 0 0 280px;
 
+				@include mobile {
+					padding: 120px 0 0 20px;
+				}
+
 				.title1 {
 					color: white;
 					font-size: 30px;
 					margin-bottom: 13px;
 					position: relative;
+
+					@include mobile {
+						font-size: 20px;
+					}
 
 					span {
 						position: absolute;
@@ -88,15 +126,71 @@
 					font-size: 23px;
 					font-weight: 300;
 					margin-bottom: 15px;
+					text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+					@include mobile {
+						font-size: 16px;
+					}
+				}
+
+				.rating {
+					color: #0084ff;
+					font-size: 16px;
+					font-weight: 300;
+					margin-bottom: 15px;
+
+					&__popularity {
+						color: #00b7ff;
+						display: inline;
+						font-size: 16px;
+						font-weight: 300;
+						margin-bottom: 15px;
+						padding: 2px 5px;
+						background-color: #544c21;
+						border-radius: 5px;
+						margin-right: 10px;
+						box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+						span {
+							color: #c7c1ba;
+							margin-left: 5px;
+						}
+
+						@include mobile {
+							font-size: 12px;
+							margin-right: 5px;
+						}
+					}
+
+					&__vote {
+						color: #fff129;
+						display: inline;
+						font-size: 16px;
+						font-weight: 300;
+						margin-bottom: 15px;
+						padding: 2px 5px;
+						background-color: #544c21;
+						border-radius: 5px;
+						margin-left: 10px;
+						box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+						span {
+							color: #c7c1ba;
+							margin-left: 5px;
+						}
+
+						@include mobile {
+							font-size: 12px;
+						}
+					}
 				}
 			}
 		}
 
 		.modal__cover {
 			position: absolute;
-			top: 95px;
+			top: 90px;
 			left: 15px;
-			width: 30%;
+			width: 28%;
 			z-index: 2;
 			border-radius: 5px;
 		}
@@ -109,14 +203,20 @@
 			color: #b1b0ac;
 
 			.column1 {
-				padding-left: 50px;
-				padding-top: 120px;
+				padding-left: 15px;
+				padding-top: 90px;
 				width: 220px;
 				float: left;
 				text-align: center;
 				display: flex;
 				flex-wrap: wrap;
 				gap: 5px;
+
+				@include mobile {
+					padding-top: 20px;
+					width: 100%;
+					padding-left: 0;
+				}
 
 				.tag {
 					background: white;
@@ -126,6 +226,10 @@
 					margin-right: 4px;
 					line-height: 35px;
 					cursor: pointer;
+
+					@include mobile {
+						font-size: 12px;
+					}
 
 					&:hover {
 						background: #ddd;
@@ -140,11 +244,40 @@
 				width: 480px;
 				float: left;
 
+				p {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					line-height: 20px;
+					-webkit-line-clamp: 4;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+
+					@include mobile {
+						font-size: 12px;
+					}
+					
+				}
+
+				@include mobile {
+					width: 100%;
+					padding-left: 2px;
+					margin-left: 2px;
+
+					p {
+						display: none;
+					}
+				}
+
 				.avatars {
 					margin-top: 23px;
 					display: flex;
 					flex-wrap: wrap;
 					gap: 20px;
+
+					@include mobile {
+						margin-top: 10px;
+						gap: 5px;
+					}
 
 					.cast {
 						@include flex(center, center);
@@ -158,6 +291,11 @@
 							width: 50px;
 							height: 50px;
 							object-fit: cover;
+
+							@include mobile {
+								width: 40px;
+								height: 40px;
+							}
 						}
 
 						&__info {
@@ -166,7 +304,7 @@
 							align-items: center;
 							flex-direction: column;
 							width: max-content;
-								height: max-content;
+							height: max-content;
 							opacity: 0;
 							background: #fff;
 							border-radius: 5px;
@@ -176,8 +314,8 @@
 							left: -50px;
 							transform: translateX(50%);
 							z-index: 1;
-                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-                            transition: all 0.2s ease-in-out;
+							box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+							transition: all 0.2s ease-in-out;
 							h4 {
 								font-size: 14px;
 								font-weight: 700;
@@ -192,7 +330,6 @@
 
 						&:hover {
 							.cast__info {
-								
 								opacity: 1;
 							}
 						}
