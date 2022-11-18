@@ -1,64 +1,168 @@
 @use "../../scss/" as *;
 
 button {
-    cursor: pointer;
-    font-family: $font-family;
+	cursor: pointer;
+	font-family: $font-family;
 }
 
 .btn {
-    border: 4px solid transparent;
-    background-color: $main-color;
-    color: $white;
-    border-radius: $border-radius;
-    padding: 0.5rem 1.8rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    box-shadow: 0px 0px 7px 8px #ff00004d;
-    transition: box-shadow 0.3s ease;
-    position: relative;
+	border: 4px solid transparent;
+	background-color: $main-color;
+	color: $white;
+	border-radius: $border-radius;
+	padding: 0.5rem 1.8rem;
+	font-size: 1.5rem;
+	font-weight: 600;
+	box-shadow: 0px 0px 7px 8px #ff00004d;
+	transition: box-shadow 0.3s ease;
+	position: relative;
 }
 
 .btn:hover {
-    box-shadow: 0px 0px 7px 15px #ff00004d;
+	box-shadow: 0px 0px 7px 15px #ff00004d;
 }
 
 .btn-outline {
-    border: 3px solid $white;
-    background-color: transparent;
-    color: $white;
-    box-shadow: unset;
-    transition: color 0.3s ease, background-color 0.3s ease;
+	border: 3px solid $white;
+	background-color: transparent;
+	color: $white;
+	box-shadow: unset;
+	transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .btn-outline:hover {
-    box-shadow: unset;
-    color: $main-color;
-    background-color: $white;
+	box-shadow: unset;
+	color: $main-color;
+	background-color: $white;
 }
 
 .btn.small {
-    border-width: 2px;
-    padding: 0.25rem 1.5rem;
-    font-size: 1rem;
+	border-width: 2px;
+	padding: 0.25rem 1.5rem;
+	font-size: 1rem;
 }
 
 .btn-action {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: none;
-    background-color: $main-color;
-    color: $white;
-    font-size: 0.7rem;
-    font-weight: 600;
-    // box-shadow: 0px 0px 7px 8px #ff00004d;
-    transition: box-shadow 0.3s ease;
-    position: relative;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	border: none;
+	background-color: $main-color;
+	color: $white;
+	font-size: 0.7rem;
+	font-weight: 600;
+	// box-shadow: 0px 0px 7px 8px #ff00004d;
+	transition: box-shadow 0.3s ease;
+	position: relative;
 }
 
 .btn-action:hover {
-    box-shadow: 0px 0px 7px 5px #ff00004d;
-    // scale the button
-    transform: scale(1.1);
+	box-shadow: 0px 0px 7px 5px #ff00004d;
+	// scale the button
+	transform: scale(1.1);
 }
 
+.btn-icon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+	.circle {
+		grid-column: 2 / 3;
+		grid-row: 4 / 6;
+		width: 7rem;
+		height: 100%;
+		justify-self: center;
+		border-radius: 1rem;
+		display: grid;
+		grid-template-rows: 1fr;
+		justify-items: center;
+		align-items: center;
+
+		&__btn {
+			grid-row: 1 / 2;
+			grid-column: 1 / 2;
+			width: 5rem;
+			height: 5rem;
+			display: flex;
+			margin: 0.6rem;
+			justify-content: center;
+			align-items: center;
+			border-radius: 50%;
+			font-size: 2.8rem;
+			color: $greyDark;
+			z-index: 300;
+			background: $greyLight-1;
+			box-shadow: $shadow;
+			cursor: pointer;
+			position: relative;
+			&.shadow {
+				box-shadow: $inner-shadow;
+			}
+
+			.play {
+				position: absolute;
+				opacity: 1;
+				transition: all 0.2s linear;
+                margin-left: 2px;
+			}
+
+            @include mobile {
+                width: 4rem;
+                height: 4rem;
+                font-size: 2.2rem;
+            }
+		}
+
+		&__back-1,
+		&__back-2 {
+			grid-row: 1 / 2;
+			grid-column: 1 / 2;
+			width: 6rem;
+			height: 6rem;
+			border-radius: 50%;
+			filter: blur(1px);
+			z-index: 100;
+		}
+
+		&__back-1 {
+			box-shadow: 0.4rem 0.4rem 0.8rem $greyLight-2,
+				-0.4rem -0.4rem 0.8rem $white;
+			background: linear-gradient(to bottom right, $greyLight-2) 0%,
+				$white 100%;
+			animation: waves 4s linear infinite;
+		}
+
+		&__back-2 {
+			box-shadow: 0.4rem 0.4rem 0.8rem $greyLight-2,
+				-0.4rem -0.4rem 0.8rem $white;
+			animation: waves 4s linear 2s infinite;
+		}
+
+        &:active {
+            .circle__back-1, .circle__back-2 {
+                animation-play-state: paused;
+            }
+
+            .circle__btn {
+                color: $main-color;
+            }
+        }
+	}
+}
+
+@keyframes waves {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 1;
+	}
+
+	100% {
+		transform: scale(2);
+		opacity: 0;
+	}
+}

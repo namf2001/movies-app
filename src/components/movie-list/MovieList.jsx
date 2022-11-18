@@ -6,13 +6,13 @@ import "./movie-list.scss";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Button
-import { OutlineButton } from "../button/Button";
+import { IconButton, OutlineButton } from "../button/Button";
 // api
 import tmdbApi, { category } from "../../api/tmdbApi";
 import MovieCard from "../movie-card/MovieCard";
 import Modal, { ModalContent } from "../modal/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp, faStar, faPlay } from "@fortawesome/free-solid-svg-icons";
 import apiConfig from "../../api/apiConfig";
 
 const MovieList = (props) => {
@@ -98,7 +98,7 @@ export const ModalDetail = (props) => {
 		};
 		getDetail();
 	}, [category, item.id]);
-	console.log(detail);
+	// console.log(detail);
 
 	if (detail === null) {
 		return <div className="loading"></div>;
@@ -118,17 +118,7 @@ export const ModalDetail = (props) => {
 											alt="cover"
 											className="modal__cover"
 										/>
-										<div className="modal__img--overlay">
-										<Link to={link}>
-											<FontAwesomeIcon
-												icon={faThumbsUp}
-												className="modal__icon"
-											/>
-										</Link>
 									</div>
-									</div>
-									{/* overlay play*/}
-									
 									<div className="hero" id={`id${item.id}`}>
 										<style>
 											{`
@@ -186,6 +176,17 @@ export const ModalDetail = (props) => {
 											<p>{detail.overview}</p>
 											<div className="avatars"></div>
 										</div>
+									</div>
+									{/* button play */}
+									<div className="modal__button">
+										<Link to={link}>
+											<IconButton>
+												<FontAwesomeIcon
+													icon={faPlay}
+													className="play"
+												/>
+											</IconButton>
+										</Link>
 									</div>
 								</div>
 							</div>

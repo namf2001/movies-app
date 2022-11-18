@@ -9,7 +9,6 @@ import VideoList from "./VideoList";
 import MovieList from "../../components/movie-list/MovieList";
 
 const Detail = (props) => {
-    
 	const { category, id } = useParams();
 	const [item, setItem] = useState(null);
 	useEffect(() => {
@@ -25,7 +24,13 @@ const Detail = (props) => {
 		<>
 			{item && (
 				<>
-					<div className="banner" style={{backgroundImage: `url(${apiConfig.originalImage(item.backdrop_path || item.poster_path)})`}}></div>
+					<div
+						className="banner"
+						style={{
+							backgroundImage: `url(${apiConfig.originalImage(
+								item.backdrop_path || item.poster_path
+							)})`,
+						}}></div>
 					<div className="mb-3 movie-content container">
 						<div className="movie-content__poster">
 							<div
@@ -64,7 +69,7 @@ const Detail = (props) => {
 								category={category}
 								type="similar"
 								id={item.id}
-                                title="Similar"
+								title="Similar"
 							/>
 						</div>
 					</div>
