@@ -1,59 +1,81 @@
 @use "../../scss/" as *;
 
 #bot-ai {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 50px;
-    height: 50px;
-    background: #fff;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 999;
+	position: fixed;
+	bottom: 2rem;
+	right: 2rem;
+	width: 50px;
+	height: 50px;
+	background: #fff;
+	border-radius: 50%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+	transition: all 0.3s ease;
+	z-index: 999;
 
-    &:hover {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-    }
+	&:hover {
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+	}
 
-    p {
+	/*  FORM  */
+	.form {
         position: absolute;
-        transform: translate(-50%, -50%);
+        top: 0;
+        right: 0;
+        transform: translateX(-150px) translateY(-60px);
+        width: 100%;
+        height: 100%;
+		grid-column: 3 / 4;
+		grid-row: 3 / 4;
         opacity: 0;
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: #000;
-        top: -2rem;
-        background-color: $white;
-        padding: 0.5rem 1rem;
-        border-radius: 5px;
+        visibility: hidden;
         transition: all 0.3s ease;
-    }
 
-    .bot-ai__icon {
-        position: absolute;
-        border-radius: 50%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 30px;
-        height: 30px;
-        background: url(../../assets/image/bot_icon.gif) no-repeat center center;
-        background-size: cover;
-    }
+		&__input {
+			width: 10.4rem;
+			height:2.5rem;
+			border: none;
+			border-radius: 1rem;
+			font-size: 0.9rem;
+			padding-left: 1rem;
+			box-shadow: $inner-shadow;
+			background: $white;
+			font-family: inherit;
+			color: $greyDark;
 
-    &:active {
-        transform: scale(1.1);
-        background: $main-color;
+			&::placeholder {
+				color: $greyLight-3;
+			}
+			&:focus {
+				outline: none;
+				box-shadow: $shadow;
+			}
+		}
+	}
 
-        p {
-            opacity: 1;
-            top: -4rem;
-        }
-    }
+	.bot-ai__icon {
+		position: absolute;
+		border-radius: 50%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 30px;
+		height: 30px;
+		background: url(../../assets/image/bot_icon.gif) no-repeat center center;
+		background-size: cover;
+	}
 
-    @include mobile {
-        display: none;
-    }
+	&:active, &:hover {
+		transform: scale(1.1);
+		background: $main-color;
+
+		.form {
+			opacity: 1;
+            visibility: visible;
+		}
+	}
+
+	@include mobile {
+		display: none;
+	}
 }

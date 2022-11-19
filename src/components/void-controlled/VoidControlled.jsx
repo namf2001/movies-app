@@ -9,6 +9,7 @@ import "./void-controlled.scss";
 const VoidControlled = () => {
 	const [redirectUrl, setRedirectUrl] = useState("");
 	const [redirect, setRedirect] = useState("");
+
 	const commands = [
 		{
 			command: [
@@ -23,40 +24,65 @@ const VoidControlled = () => {
 	];
 
 	const { transcript } = useSpeechRecognition({ commands });
-    
-	useEffect(() => {
-        const pages = ["home", "movie", "tv", "tivi"];
-        const urls = {
-            home: "/",
-            movie: "/movie",
-            tv: "/tv",
-            tivi: "/tv",
-        };
-        setTimeout(() => {
-            if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-                return null;
-            }
-            if (redirectUrl) {
-                console.log(redirectUrl);
-                if (pages.includes(redirectUrl.toLocaleLowerCase())) {
-                    setRedirect(<Navigate to={urls[redirectUrl]} replace/>);
-                } else {
-                    setRedirect(<Navigate to={`movie/search/${redirectUrl.toLowerCase()}`} replace/>);
-                }
-            }
-        }, 1000);
 
-        return () => {
-            setRedirectUrl("");
-            setRedirect("");
-        };
-    }, [redirectUrl]);
+	console.log(transcript);
+	const startListening = () => {
+		SpeechRecognition.startListening({ continuous: true });
+	}
+		
+	const stopListening = () => {
+		SpeechRecognition.stopListening()
+	};
+	
+	useEffect(() => {
+		const pages = ["home", "movie", "tv", "tivi"];
+		const urls = {
+			home: "/",
+			movie: "/movie",
+			tv: "/tv",
+			tivi: "/tv",
+		};
+
+		if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+			return null;
+		}
+		if (redirectUrl) {
+			console.log(redirectUrl);
+			if (pages.includes(redirectUrl.toLocaleLowerCase())) {
+				setRedirect(<Navigate to={urls[redirectUrl]} replace />);
+			} else {
+				setRedirect(
+					<Navigate
+						to={`movie/search/${redirectUrl.toLowerCase()}`}
+						replace
+					/>
+				);
+			}
+		}
+
+		return () => {
+			setRedirectUrl("");
+			setRedirect("");
+		};
+	}, [redirectUrl]);
 
 	return (
 		<div id="bot-ai">
 			{redirect}
-			<p>{transcript}</p>
-			<button onClick={SpeechRecognition.startListening}>
+			<div className="form">
+				<input
+					type="text"
+					className="form__input"
+					placeholder="Type anything..."
+					readOnly
+					value={transcript.slice(-15)}
+				/>
+			</div>
+			<button
+				onTouchStart={startListening}
+				onMouseDown={startListening}
+				onTouchEnd={stopListening}
+				onMouseUp={stopListening}>
 				<div className="bot-ai__icon"></div>
 			</button>
 		</div>
