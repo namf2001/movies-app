@@ -132,7 +132,7 @@ export const ModalDetail = (props) => {
 										</style>
 										<div className="details">
 											<div className="title1">
-												{detail.title}
+												{detail.title || detail.name}
 												{/* lang */}
 												<span className="lang">
 													{detail.status}
