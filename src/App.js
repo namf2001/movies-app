@@ -9,6 +9,7 @@ import Catalog from "./pages/Catalog";
 import Detail from "./pages/detail/Detail";
 import NotFound from "./pages/NotFound.jsx";
 import Intro from "./components/into/Intro";
+import VoidControlled from "./components/void-controlled/VoidControlled";
 
 function App() {
 	const [loading, setLoading] = useState(true);
@@ -36,6 +37,7 @@ function App() {
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 				<Footer />
+				<VoidControlled />
 			</>
 		);
 	}
