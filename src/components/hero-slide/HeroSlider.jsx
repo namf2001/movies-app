@@ -7,10 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faUser } from "@fortawesome/free-solid-svg-icons";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Autoplay, EffectFade, Pagination } from "swiper";
+import SwiperCore, { Autoplay, Pagination } from "swiper";
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/effect-fade";
+// import "swiper/css/effect-fade";
 import 'swiper/css/pagination';
 import "swiper/swiper-bundle.min.css";
 import "./hero-slide.scss";
@@ -49,8 +49,8 @@ const HeroSlider = () => {
 		return (
 			<div className="hero-slide">
 				<Swiper
-					modules={[Autoplay, EffectFade, Pagination]}
-					effect="fade"
+					modules={[Autoplay, Pagination]}
+					// effect="fade"
 					loop={true}
 					spaceBetween={0}
 					slidesPerView={1}

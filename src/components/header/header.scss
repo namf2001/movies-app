@@ -52,7 +52,7 @@
 	}
 
 	&__wrap {
-		@include flex(center, space-between);
+		@include flex(center, unset);
 		height: 100%;
 		padding: 0 2rem;
 
@@ -60,16 +60,99 @@
 			padding: 0 1rem;
 			justify-content: center;
 		}
+
+		.auth-dropdown {
+			@include flex(center, unset);
+			position: relative;
+
+			&__btn {
+				width: 50px;
+				height: 50px;
+				background-color: $main-color;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 10px;
+
+				@include tablet {
+					width: 40px;
+					height: 40px;
+				}
+
+				@include mobile {
+					width: 30px;
+					height: 30px;
+				}
+			}
+
+			@include flex(center, unset);
+			&__name {
+				font-size: 2.5rem;
+				font-weight: 600;
+				color: $txt-color;
+				transition: color 0.3s ease;
+			}
+
+			&__list {
+				position: absolute;
+				top: 60px;
+				right: 0;
+				width: 150px;
+				border-radius: 10px;
+				background-color: $body-bg;
+				box-shadow: $box-shadow;
+				opacity: 0;
+				visibility: hidden;
+				transform: translateY(-20px);
+				transition: all 0.3s ease;
+
+				&.active {
+					opacity: 1;
+					visibility: visible;
+					transform: translateY(0);
+				}
+				
+			}
+			&__item {
+				padding: 1rem 2rem;
+				cursor: pointer;
+				text-align: center;
+				transition: background-color 0.3s ease;
+
+				&:hover {
+					background-color: $greyLight-1;
+					color: $body-bg;
+				}
+
+				&-btn {
+					outline: none;
+					border: none;
+					background-color: transparent;
+					text-align: center;
+					color: $txt-color;
+				}
+
+				&:first-child {
+					border-radius: 10px 10px 0 0;
+				}
+				&:last-child {
+					border-radius: 0 0 10px 10px;
+					background-color: $main-color;
+				}
+			}
+		}
 	}
 
 	&__nav {
 		@include flex(center, unset);
+		margin-left: auto;
+		margin-right: 20px;
 	}
 
 	&__list {
 		@include flex(center, unset);
 
-		&>*~* {
+		& > * ~ * {
 			margin-left: 2rem;
 		}
 
@@ -111,7 +194,7 @@
 
 			@include flex(center, space-between);
 
-			&>*~* {
+			& > * ~ * {
 				margin-left: 0;
 			}
 		}

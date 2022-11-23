@@ -18,6 +18,7 @@ const VoidControlled = () => {
 				"Open * page",
 				"Open *",
 				"tìm kiếm phim *",
+				"tới trang *",
 			],
 			callback: (redirectPage) => setRedirectUrl(redirectPage),
 		},
@@ -35,14 +36,15 @@ const VoidControlled = () => {
 	};
 	
 	useEffect(() => {
-		const pages = ["home", "movie", "tv", "tivi"];
+		const pages = ["home", "movie", "tv", "tivi", "login", "sign", "đăng nhập", "đăng ký"];
 		const urls = {
 			home: "/",
 			movie: "/movie",
 			tv: "/tv",
 			tivi: "/tv",
+			"đăng nhập": "connect/login",
+			"đăng ký": "connect/signup",
 		};
-
 		if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
 			return null;
 		}

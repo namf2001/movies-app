@@ -10,6 +10,10 @@ import Detail from "./pages/detail/Detail";
 import NotFound from "./pages/NotFound.jsx";
 import Intro from "./components/into/Intro";
 import VoidControlled from "./components/void-controlled/VoidControlled";
+import { AuthContextProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/protected-route/ProtectedRoute";
+import Account from "./components/account/Account";
+import LoginSigup from "./pages/auth/login-signup/LoginSignup";
 
 function App() {
 	const [loading, setLoading] = useState(true);
@@ -20,27 +24,36 @@ function App() {
 		}, 5000);
 	}, []);
 
-	if (loading) {
-		return <Intro />;
-	} else {
-		return (
-			<>
-				<Header />
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route
-						path="/:category/search/:keyword"
-						element={<Catalog />}
-					/>
-					<Route path="/:category/:id" element={<Detail />} />
-					<Route path="/:category" element={<Catalog />} />
-					<Route path="*" element={<NotFound />} />
-				</Routes>
-				<Footer />
-				<VoidControlled />
-			</>
-		);
-	}
+	// if (loading) {
+	// 	return <Intro />;
+	// } else {
+	return (
+		<AuthContextProvider>
+			<Header />
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route
+					path="/:category/search/:keyword"
+					element={<Catalog />}
+				/>
+				<Route path="/:category/:id" element={<Detail />} />
+				<Route path="/:category" element={<Catalog />} />
+				<Route path="/connect/:param" element={<LoginSigup />} />
+				<Route
+					path="/account"
+					element={
+						<ProtectedRoute>
+							<Account />
+						</ProtectedRoute>
+					}
+				/>
+				<Route path="*" element={<NotFound />} />
+			</Routes>
+			<Footer />
+			<VoidControlled />
+		</AuthContextProvider>
+	);
+	// }
 }
 
 export default App;

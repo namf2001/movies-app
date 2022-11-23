@@ -1,0 +1,147 @@
+@use "../../../scss/" as *;
+
+.login {
+	width: 100%;
+	height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $main-color;
+        z-index: -1;
+        object-fit: cover;
+    }
+
+    &__overlay {
+        position: fixed;;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: -1;
+    }
+
+	&__form {
+		position: fixed;
+        width: 100%;
+        z-index: 99;
+
+        &--container {
+            max-width: 450px;
+            height: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: $txt-color;
+            background-color: $body-bg;
+            border-radius: $border-radius;
+
+            &--form {
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 6rem 0;
+            }
+        }
+
+        &--title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        &--error {
+            color: $main-color;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        &--input {
+            width: 100%;
+            height: 50px;
+            background-color: $body-bg;
+            border: none;
+            border-radius: $border-radius;
+            padding: 0 1rem;
+            margin-bottom: 20px;
+            color: $txt-color;
+            font-size: 1.2rem;
+            box-shadow: $box-shadow;
+            transition: all 0.3s ease;
+
+            &:focus {
+                outline: none;
+                box-shadow: 0 0 0 2px $main-color;
+            }
+        }
+
+        &--btn {
+            width: 100%;
+            height: 50px;
+            background-color: $main-color;
+            border: none;
+            border-radius: $border-radius;
+            color: $body-bg;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: $main-color-hover;
+            }
+        }
+
+        &--forgot {
+            color: $txt-color;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            p {
+                display: inline;
+                input[type="checkbox"] {
+                    transform: scale(1.5);
+                    margin-right: 0.2rem;
+                }
+            }
+
+            &:hover {
+                color: $main-color;
+            }
+        }
+
+        &--create {
+            color: $txt-color;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            a {
+                color: $main-color;
+                font-weight: 600;
+
+                &:hover {
+                    color: $main-color-hover;
+                }
+            }
+        }
+	}
+}
+
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+}

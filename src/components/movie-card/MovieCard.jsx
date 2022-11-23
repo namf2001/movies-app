@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 // scss
 import "./movie-card.scss";
 //  button
@@ -6,13 +7,23 @@ import { ActionButton } from "../button/Button";
 // icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import icons
-import { faPlay, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faPlus } from "@fortawesome/free-solid-svg-icons";
+
+import { faBookmark as faBookmarkRegular } from "@fortawesome/free-regular-svg-icons";
+
 // api
 import apiConfig from "../../api/apiConfig";
 import tmdbApi, { category } from "../../api/tmdbApi";
-import { Link } from "react-router-dom";
+import { UserAuth } from "../../context/AuthContext";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { db } from "../../api/firebase/firebase";
 
 const MovieCard = (props) => {
+	const [like, setLike] = useState(false);
+	// console.log(saved);
+	const { user } = UserAuth();
+
+	const movieID = doc(db, "users", `${user?.email}`);
 	const setModalActive = async () => {
 		const modal = document.querySelector(`#modal__detail-${item.id}`);
 		const credits = await tmdbApi.credits(category.movie, item.id);
@@ -36,7 +47,22 @@ const MovieCard = (props) => {
 		modal.classList.toggle("active");
 	};
 	const item = props.item;
-	const link = `/${props.category}/${item.id}`;
+
+	const saveShow = async () => {
+		if (user?.email) {
+			setLike(!like);
+			await updateDoc(movieID, {
+				savedShows: arrayUnion({
+					id: item.id,
+					item: props.item,
+					category: props.category,
+				}),
+			});
+			console.log("saved");
+		} else {
+			alert("Please log in to save a movie");
+		}
+	};
 	let bg = apiConfig.w500Image(item.backdrop_path);
 	if (bg === "https://image.tmdb.org/t/p/w500/null") {
 		bg = "https://source.unsplash.com/random/218x123";
@@ -53,9 +79,22 @@ const MovieCard = (props) => {
 					<div className="votes">
 						<div className="vote">
 							<div className="vote__icon">
-								<Link to={link}>
-									<FontAwesomeIcon icon={faPlay} />
-								</Link>
+								{like ? (
+									<div
+										onClick={
+											props.onClick
+												? () => props.onClick()
+												: null
+										}>
+										<FontAwesomeIcon icon={faBookmark} />
+									</div>
+								) : (
+									<div onClick={saveShow}>
+										<FontAwesomeIcon
+											icon={faBookmarkRegular}
+										/>
+									</div>
+								)}
 							</div>
 							<div className="vote__average">
 								<h3>
@@ -74,4 +113,9 @@ const MovieCard = (props) => {
 	);
 };
 
+MovieCard.propTypes = {
+	item: PropTypes.object,
+	category: PropTypes.string,
+	deleteShow: PropTypes.func,
+};
 export default MovieCard;

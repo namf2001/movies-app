@@ -15,9 +15,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faStar, faPlay } from "@fortawesome/free-solid-svg-icons";
 import apiConfig from "../../api/apiConfig";
 
+
 const MovieList = (props) => {
 	const [movies, setMovies] = useState([]);
-
 	useEffect(() => {
 		const fetchData = async () => {
 			let response = null;
@@ -41,8 +41,7 @@ const MovieList = (props) => {
 			setMovies(response.results);
 		};
 		fetchData();
-	}, [props.category, props.type, props.id]);
-
+	}, [props.category, props.type, props.id]);	
 	return (
 		<>
 			<div className="section mb-3">
@@ -62,7 +61,7 @@ const MovieList = (props) => {
 						freeMode={true}>
 						{movies.map((item, i) => (
 							<SwiperSlide key={i}>
-								<MovieCard
+								<MovieCard 
 									item={item}
 									category={props.category}
 								/>
@@ -98,7 +97,6 @@ export const ModalDetail = (props) => {
 		};
 		getDetail();
 	}, [category, item.id]);
-	// console.log(detail);
 
 	if (detail === null) {
 		return <div className="loading"></div>;

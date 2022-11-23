@@ -91,7 +91,7 @@ const MovieGird = (props) => {
 					</OutlineButton>
 				</div>
 			) : null}
-			{items.map((item, i) => (	
+			{items.map((item, i) => (
 				<ModalDetail key={i} item={item} category={props.category} />
 			))}
 		</>

@@ -18,7 +18,7 @@
 		left: 0;
 		bottom: 0;
 		right: 0;
-		transform: translateY(100%);
+		// transform: translateY(100%);
 		background: rgba(0, 0, 0, 0.4);
 		opacity: 0;
 		-webkit-transition: all 0.5s ease;
@@ -56,17 +56,23 @@
 				.vote {
 					display: flex;
 					align-items: center;
-					
-                    &__icon {
+
+					&__icon {
 						display: flex;
 						justify-content: center;
 						align-items: center;
-                        width: 30px;
-                        height: 30px;
+						width: 30px;
+						height: 30px;
 						// margin-right: 17px;
-						background: #0059ff;
+						background: $green;
 						border-radius: 50%;
-                    }
+
+						&:hover {
+							box-shadow: 0px 0px 7px 5px #15ff0067;
+							// scale the button
+							transform: scale(1.1);
+						}
+					}
 
 					&__average {
 						font-size: 0.7rem;
@@ -79,8 +85,16 @@
 		}
 	}
 
-	&:hover .movie-card__overplay {
-		opacity: 1;
-		transform: translateY(0);
+	&:hover {
+		img {
+			-webkit-transform: scale(1.1);
+			-ms-transform: scale(1.1);
+			transform: scale(1.1) translateY(10px);
+			box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+		}
+		.movie-card__overplay {
+			opacity: 1;
+			transform: translateY(10px) scale(1.1);
+		}
 	}
 }
