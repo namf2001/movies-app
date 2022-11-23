@@ -33,9 +33,17 @@
         width: 100%;
         z-index: 99;
 
+        @include tablet {
+            width: 90%;
+        }
+
+        @include mobile {
+            width: 90%;
+        }
+
         &--container {
             max-width: 450px;
-            height: 600px;
+            max-height: 600px;
             margin-left: auto;
             margin-right: auto;
             color: $txt-color;
@@ -79,6 +87,16 @@
                 outline: none;
                 box-shadow: 0 0 0 2px $main-color;
             }
+
+            &::placeholder {
+                color: $txt-color;
+            }
+
+            @include mobile {
+                height: 40px;
+            }
+
+
         }
 
         &--btn {
@@ -92,6 +110,10 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+
+            @include mobile {
+                height: 40px;
+            }
 
             &:hover {
                 background-color: $main-color-hover;
