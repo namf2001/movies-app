@@ -2,13 +2,20 @@
 
 .movie-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	grid-gap: 1rem;
 	margin: 1.5rem 0;
     width: 100%;
+    padding: 0 2rem;
 
     @include tablet {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        padding: 0 1rem;
+    }
+
+    @include mobile {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        padding: 0 0.5rem;
     }
 
     &__loadmore {

@@ -22,6 +22,8 @@
     &__content {
         padding: 2rem;
         background-color: $body-bg;
+        max-width: 80%;
+        min-width: 800px;
         // width: 50%;
         opacity: 0;
         transform: translateY(-250px);

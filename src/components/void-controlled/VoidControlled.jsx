@@ -75,7 +75,7 @@ const VoidControlled = () => {
 				<input
 					type="text"
 					className="form__input"
-					placeholder="Type anything..."
+					placeholder="Say anything..."
 					readOnly
 					value={transcript.slice(-15)}
 				/>

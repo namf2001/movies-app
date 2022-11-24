@@ -181,7 +181,7 @@ export const TrailerModal = (props) => {
 				<iframe
 					ref={iframeRef}
 					width="100%"
-					height="500px"
+					height="600px"
 					title="trailer"></iframe>
 			</ModalContent>
 		</Modal>
