@@ -70,7 +70,7 @@ const LoginSigup = () => {
 								autoComplete="current-password"
 							/>
 							<button className="login__form--btn">
-								{param === "signup" ? "Sign Up" : "Sign In"}
+								{param === "signup" ? "Sign Up" : "LogIn"}
 							</button>
 							<div className="login__form--forgot">
 								<p>

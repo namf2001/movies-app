@@ -24,9 +24,9 @@ function App() {
 		}, 5000);
 	}, []);
 
-	// if (loading) {
-	// 	return <Intro />;
-	// } else {
+	if (loading) {
+		return <Intro />;
+	} else {
 	return (
 		<AuthContextProvider>
 			<Header />
@@ -53,7 +53,7 @@ function App() {
 			<VoidControlled />
 		</AuthContextProvider>
 	);
-	// }
+	}
 }
 
 export default App;
