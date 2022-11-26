@@ -5,7 +5,6 @@ import Button, { OutlineButton } from "../button/Button";
 import Input from "../input/Input.jsx";
 import MovieCard from "../movie-card/MovieCard";
 import { ModalDetail } from "../movie-list/MovieList";
-// import MovieSearch from "../movie-search/MovieSearch";
 // import scss
 import "./movie-gird.scss";
 

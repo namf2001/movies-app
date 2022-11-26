@@ -18,7 +18,7 @@ const VoidControlled = () => {
 				"Open * page",
 				"Open *",
 				"tìm kiếm phim *",
-				"tới trang *",
+				"đi tới trang *",
 			],
 			callback: (redirectPage) => setRedirectUrl(redirectPage),
 		},
